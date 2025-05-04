@@ -19,8 +19,6 @@ ExamEase is a robust and secure web-based platform designed to streamline the on
 - **Authentication**: Flask-Login
 - **Deployment**: Heroku / AWS / Local Server
 
-
-<pre><code>## 📁 Project Structure ``` ExamEase/ ├── app/ │ ├── static/ │ ├── templates/ │ ├── __init__.py │ ├── models.py │ ├── routes.py │ └── forms.py ├── config.py ├── requirements.txt ├── run.py └── README.md ``` </code></pre>
 ## 📄 License
 
 This project is licensed under the MIT License.
