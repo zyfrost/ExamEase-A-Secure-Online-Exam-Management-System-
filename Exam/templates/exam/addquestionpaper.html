@@ -1,0 +1,105 @@
+{% extends 'base_faculty.html' %}
+
+{% block body %}
+    <div class="mt-5">
+    </div>
+
+<style>
+*{
+  color: #745959;
+}
+button[type=submit]:hover{
+        background: #87FF9B;
+    }
+#id_questions{
+  display:block;
+  width:100%;
+  height:calc(10em);
+  padding:.375rem .75rem;
+  font-size:1rem;
+  font-weight:400;
+  line-height:1.5;
+  color: #745959;
+  background-color:#fff;
+  background-clip:padding-box;
+  border:1px solid #745959;
+  border-radius:.25rem;
+  transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* Fix for scrollable checkbox list */
+.question-checkbox-list {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Fix checkbox item structure */
+.question-checkbox-list li {
+    list-style-type: none;
+    margin-bottom: 8px;
+    padding: 5px 8px;
+    border-bottom: 1px solid #f0f0f0;
+    word-break: break-word;
+    white-space: normal;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    display: flex !important;  /* Force flex display */
+    align-items: flex-start !important;  /* Align at the start for proper text flow */
+}
+    
+.question-checkbox-list li:hover {
+    background-color: #f8f8f8;
+}
+
+/* Make checkboxes more prominent and align properly */
+.question-checkbox-list input[type="checkbox"] {
+    margin-right: 8px !important;
+    transform: scale(1.2);
+    flex-shrink: 0 !important;
+    margin-top: 3px !important;
+    position: relative !important;
+    float: none !important;  /* Remove float to use flexbox alignment */
+    width: auto !important;  /* Prevent width inheritance */
+}
+
+/* Fix label alignment to be on same line as checkbox */
+.question-checkbox-list label {
+    margin-bottom: 0 !important;
+    display: inline !important;
+    cursor: pointer;
+    margin-left: 0 !important;  /* Remove margin since we're using flexbox */
+    flex: 1 !important;  /* Allow label to take remaining space */
+}
+
+/* Override any Django-generated styles */
+.question-checkbox-list ul {
+    padding-left: 0 !important;
+}
+</style>
+<div class="row">
+	<div class="col-md-2"></div>
+    <div class="col-md-6">
+        <div class="ml-5 card">
+            <form method="POST" action="{% url 'faculty-add_question_paper' %}">
+                <div class="container">
+                    {% csrf_token %}
+                    {{examform.as_p}}
+                </div>
+                <div class="text-center">
+                <button class= "btn" style="border-color:#745959; color:#745959;" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base_faculty.html' %}
+
+{% block title %}Extracted Questions{% endblock %}
+
+{% block body %}
+<div class="mt-5"></div>
+
+<style>
+    *{
+      color: #745959;
+    }
+    button[type=submit]:hover{
+        background: #87FF9B;
+    }
+    .question-container {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+    .question-text {
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+    .options-list {
+        margin-left: 20px;
+    }
+    .correct-answer {
+        color: #28a745;
+        font-weight: bold;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header" style="background-color: #87ff9b; color: #745959;">
+                <h4>Extracted Questions</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-success">
+                    <p>Successfully extracted {{ questions|length }} questions from your PDF.</p>
+                    <p>You can review each question below and make edits as needed.</p>
+                </div>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ form.action.id_for_label }}">What would you like to do with these questions?</label>
+                        {{ form.action }}
+                    </div>
+                    
+                    <div class="form-group" id="question_paper_group" style="display: none;">
+                        <label for="{{ form.question_paper.id_for_label }}">Select Question Paper:</label>
+                        {{ form.question_paper }}
+                    </div>
+                    
+                    <button type="submit" class="btn mb-4" style="border-color:#745959; color:#745959;">
+                        Process Selected Action
+                    </button>
+                </form>
+                
+                <h5>Review Extracted Questions:</h5>
+                {% for question in questions %}
+                <div class="question-container">
+                    <div class="question-text">{{ forloop.counter }}. {{ question.question }}</div>
+                    <div class="options-list mt-2">
+                        <div>A) {{ question.optionA }}</div>
+                        <div>B) {{ question.optionB }}</div>
+                        <div>C) {{ question.optionC }}</div>
+                        <div>D) {{ question.optionD }}</div>
+                    </div>
+                    <div class="mt-2">
+                        <strong>Correct Answer:</strong>
+                        {% if question.answer %}
+                            <span class="correct-answer">{{ question.answer }}</span>
+                        {% else %}
+                            <span class="text-warning">Not detected</span>
+                        {% endif %}
+                    </div>
+                    <div class="mt-2">
+                        <a href="{% url 'edit-extracted-question' question.qno %}?pdf_id={{ pdf_upload.id }}" 
+                           class="btn btn-sm" style="border-color:#745959; color:#745959;">
+                            Edit Question
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Show/hide question paper selection based on action
+document.addEventListener('DOMContentLoaded', function() {
+    const actionSelect = document.getElementById('{{ form.action.id_for_label }}');
+    const questionPaperGroup = document.getElementById('question_paper_group');
+    
+    function updateVisibility() {
+        if (actionSelect.value === 'add_to_paper') {
+            questionPaperGroup.style.display = 'block';
+        } else {
+            questionPaperGroup.style.display = 'none';
+        }
+    }
+    
+    actionSelect.addEventListener('change', updateVisibility);
+    updateVisibility(); // Initial state
+});
+</script>
+{% endblock %}

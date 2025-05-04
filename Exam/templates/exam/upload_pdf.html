@@ -1,0 +1,72 @@
+{% extends 'base_faculty.html' %}
+
+{% block title %}Upload PDF Questions{% endblock %}
+
+{% block body %}
+<div class="mt-5"></div>
+
+<style>
+    *{
+      color: #745959;
+    }
+    button[type=submit]:hover{
+        background: #87FF9B;
+    }
+    .file-upload-info {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" style="background-color: #87ff9b; color: #745959;">
+                <h4>Upload Question Paper PDF</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ form.pdf_file.id_for_label }}">Select PDF File:</label>
+                        {{ form.pdf_file }}
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>Note:</strong> The system will extract questions from the PDF using machine learning.
+                        <p>For best results:</p>
+                        <ul>
+                            <li>Each question should be clearly separated</li>
+                            <li>Multiple-choice questions should have options labeled as A), B), C), D) or similar</li>
+                            <li>The correct answer should be indicated in the PDF</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn" style="border-color:#745959; color:#745959;">
+                            Upload and Extract Questions
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header" style="background-color: #87ff9b; color: #745959;">
+                <h4>How It Works</h4>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>Upload your PDF containing questions</li>
+                    <li>Our AI will analyze and extract questions, options, and answers</li>
+                    <li>Review the extracted questions and make any necessary edits</li>
+                    <li>Add the questions to your question bank or directly to a question paper</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base_faculty.html' %}
+
+{% block title %}Edit Question{% endblock %}
+
+{% block body %}
+<div class="mt-5"></div>
+
+<style>
+    *{
+      color: #745959;
+    }
+    button[type=submit]:hover{
+        background: #87FF9B;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" style="background-color: #87ff9b; color: #745959;">
+                <h4>Edit Question</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn" style="border-color:#745959; color:#745959;">
+                            Save Changes
+                        </button>
+                        <a href="{% url 'view_extracted_questions' pdf_id %}" class="btn ml-2" 
+                           style="border-color:#745959; color:#745959;">
+                            Back to Questions
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
