@@ -13,10 +13,10 @@ ExamEase is a robust and secure web-based platform designed to streamline the on
 
 ## 🛠️ Tech Stack
 
-- **Backend**: Python, Flask
+- **Backend**: Python, Django
 - **Frontend**: HTML, CSS, JavaScript
 - **Database**: SQLite
-- **Authentication**: Flask-Login
+- **Authentication**: Django-Login , SMTP
 - **Deployment**: Heroku / AWS / Local Server
 
 ## 📄 License
